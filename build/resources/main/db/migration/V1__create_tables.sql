@@ -15,10 +15,10 @@ CREATE TABLE location (
     phone_number    VARCHAR(30),
     email           VARCHAR(50),
     address         VARCHAR(150),
-    seller_id       BIGINT NOT NULL
+    seller_id       BIGSERIAL NOT NULL
 );
 ALTER TABLE location ADD CONSTRAINT location_pk PRIMARY KEY ( id );
-ALTER TABLE location ADD CONSTRAINT location_fk foreign key (seller_id) REFERENCES seller(id);
+ALTER TABLE location ADD CONSTRAINT FK_ID foreign key (seller_id) REFERENCES seller(id);
 CREATE TABLE products(
     id                BIGSERIAL NOT NULL,
     product_name      VARCHAR(30) not null,
@@ -26,8 +26,8 @@ CREATE TABLE products(
     price             VARCHAR(20),
     weight            VARCHAR(10),
     year              VARCHAR(4),
-    location_id       BIGINT NOT NULL
+    location_id       bigint NOT NULL
 
 );
 ALTER TABLE products ADD CONSTRAINT products_pk PRIMARY KEY ( id );
-ALTER TABLE products ADD CONSTRAINT products_fk foreign key (location_id) REFERENCES location(id);
+ALTER TABLE products ADD CONSTRAINT FK_ID foreign key (location_id) REFERENCES location(id);
