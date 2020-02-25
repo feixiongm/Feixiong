@@ -1,23 +1,57 @@
 package com.ascending.model;
 
-public class location {
+import javax.persistence.*;
+import java.util.Set;
 
-    private int id;
+@Entity
+@Table(name = "locations")
+//@Table(name = "locations")
+public class Location {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "phone_number")
     private String phone_number;
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "address")
     private String address;
-    private int seller_id;
 
-    public location() {
+    @Column(name = "seller_id")
+    private Long seller_id;
+
+    @OneToMany(mappedBy = "location")
+    private Set<Product> products;
+
+    public Location() {
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
+    public Location(long id, String name, String phone_number, String email, String address, Long seller_id){
         this.id = id;
+        this.name = name;
+        this.phone_number = phone_number;
+        this.email = email;
+        this.address = address;
+        this.seller_id = seller_id;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getName() {
@@ -52,11 +86,11 @@ public class location {
         this.address = address;
     }
 
-    public int getSeller_id() {
+    public Long getSeller_id() {
         return seller_id;
     }
 
-    public void setSeller_id(int seller_id) {
+    public void setSeller_id(Long seller_id) {
         this.seller_id = seller_id;
     }
 }

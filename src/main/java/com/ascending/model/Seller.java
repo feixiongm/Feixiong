@@ -1,23 +1,39 @@
 package com.ascending.model;
 
-public class seller {
-    private int id;
+import javax.persistence.*;
+
+@Entity
+@Table(name = "sellers")
+public class Seller {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "email")
     private String email;
-    private double phone_number;
+
+    @Column(name = "phone_number")
+    private String phone_number;
+
+    @Column(name = "description")
     private String description;
+
+    @JoinColumn(name = "location")
     private String location;
 
-    public seller() {
+
+
+    public Seller() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -35,11 +51,11 @@ public class seller {
         this.email = email;
     }
 
-    public double getPhone_number() {
+    public String getPhone_number() {
         return phone_number;
     }
 
-    public void setPhone_number(double phone_number) {
+    public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;
     }
 

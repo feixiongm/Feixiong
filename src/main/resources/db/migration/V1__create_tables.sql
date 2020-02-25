@@ -8,7 +8,7 @@ CREATE TABLE seller (
     location          VARCHAR(100)
 );
 ALTER TABLE seller ADD CONSTRAINT seller_pk PRIMARY KEY ( id );
-CREATE TABLE location (
+CREATE TABLE locations (
     /*id              INTEGER NOT NULL default nextval('employee_id_seq'),*/
     id              BIGSERIAL NOT NULL,
     name            VARCHAR(30) not null unique,
@@ -17,17 +17,17 @@ CREATE TABLE location (
     address         VARCHAR(150),
     seller_id       BIGINT NOT NULL
 );
-ALTER TABLE location ADD CONSTRAINT location_pk PRIMARY KEY ( id );
-ALTER TABLE location ADD CONSTRAINT location_fk foreign key (seller_id) REFERENCES seller(id);
+ALTER TABLE locations ADD CONSTRAINT location_pk PRIMARY KEY ( id );
+ALTER TABLE locations ADD CONSTRAINT location_fk foreign key (seller_id) REFERENCES seller(id);
 CREATE TABLE products(
     id                BIGSERIAL NOT NULL,
     product_name      VARCHAR(30) not null,
     description       VARCHAR(150),
-    price             VARCHAR(20),
-    weight            VARCHAR(10),
+    price             float8,
+    weight            float8,
     year              VARCHAR(4),
     location_id       BIGINT NOT NULL
 
 );
 ALTER TABLE products ADD CONSTRAINT products_pk PRIMARY KEY ( id );
-ALTER TABLE products ADD CONSTRAINT products_fk foreign key (location_id) REFERENCES location(id);
+ALTER TABLE products ADD CONSTRAINT products_fk foreign key (location_id) REFERENCES locations(id);
