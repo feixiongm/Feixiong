@@ -21,11 +21,11 @@ import java.util.List;
 @SpringBootTest(classes = ApplicationBootstrap.class)
 public class LocationDaoTest {
     private LocationDaoImpl locationDaoImpl = new LocationDaoImpl();
-//    private Logger logger = LoggerFactory.getLogger(getClass());
+    //    private Logger logger = LoggerFactory.getLogger(getClass());
     private Location location;
 
     @Before
-    public void setup(){
+    public void setup() {
         location = new Location();
         location.setAddress("falls church");
         location.setEmail("1093599417@qq.com");
@@ -37,33 +37,40 @@ public class LocationDaoTest {
     }
 
     @After
-    public void tearDown(){
-        if(location != null)
-            locationDaoImpl.delete(location.getName());
+    public void tearDown() {
+        if (location != null)
+            Assert.assertTrue(locationDaoImpl.delete(location.getName()));
     }
 
     @Test
     //@Transactional
-    public void getLocationTest(){
+    public void getLocationTest() {
         List<Location> locations = locationDaoImpl.getLocations();
         int expectedNumOfloca = 5;
         Assert.assertEquals(expectedNumOfloca, locations.size());
     }
 
     @Test
-    public void updateTest(){
+    public void getLocationByIdTest() {
+        String testName = "location1";
+        Location location = locationDaoImpl.getLocationById(1L);
+        Assert.assertTrue(location.getName().equals("location1"));
+    }
+
+    @Test
+    public void updateTest() {
+
         location.setName("123");
         locationDaoImpl.save(location);
         Assert.assertEquals("123", location.getName());
     }
 
     @Test
-    public void save(){
+    public void save() {
         //Assert.assertNotEquals(Long.valueOf(0) , locations.getId());
-        assert(0 != location.getId());
+        assert (0 != location.getId());
 
     }
-
 
 
 //    public void getLocationAndProductsByTest(){

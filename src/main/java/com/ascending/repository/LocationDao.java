@@ -9,5 +9,5 @@ public interface LocationDao {
     Location save(Location location);
     Boolean delete(String locaName);
     List<Location> getLocationAndProducts(String name);
-    public Location getLocationById(int id);
+    Location getLocationById(Long id);
 }

@@ -1,5 +1,6 @@
 package com.ascending.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.checkerframework.checker.units.qual.C;
 
 import javax.persistence.*;
@@ -31,6 +32,7 @@ public class Product {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id")
+    @JsonIgnore
     private Location location;
 
     public Location getLocation() {

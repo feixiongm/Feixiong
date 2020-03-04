@@ -1,5 +1,7 @@
 package com.ascending.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -7,7 +9,6 @@ import java.util.Set;
 @Table(name = "locations")
 //@Table(name = "locations")
 public class Location {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -27,7 +28,8 @@ public class Location {
     @Column(name = "seller_id")
     private Long seller_id;
 
-    @OneToMany(mappedBy = "location")
+//    @JsonIgnore
+    @OneToMany(mappedBy = "location", cascade= CascadeType.REMOVE, fetch = FetchType.LAZY)
     private Set<Product> products;
 
     public Location() {

@@ -3,6 +3,7 @@ package com.ascending.service;
 import com.ascending.model.Location;
 import com.ascending.repository.LocationDao;
 import com.ascending.repository.LocationDaoImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,4 +29,5 @@ public class LocationService {
     public List<Location> getLocationAndProducts(String name){
         return locationDao.getLocationAndProducts(name);
     }
+    public Location getLocationById(Long id){return locationDao.getLocationById(id);}
 }

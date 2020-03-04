@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
@@ -16,15 +17,15 @@ import java.util.List;
 @Repository
 public class LocationDaoImpl implements LocationDao{
 
-    private SessionFactory sessionFactory;
+    private SessionFactory sessionFactory=HibernateUtil.getSessionFactory();
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
     public List<Location> getLocations() {
-        String hql = "FROM Location";
-        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+        String hql = "FROM Location  as loca left join fetch loca.products";
+        try(Session session = sessionFactory.openSession()){
             Query<Location> query = session.createQuery(hql);
-            return query.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+            return query.list();
         }
     }
 
@@ -32,7 +33,8 @@ public class LocationDaoImpl implements LocationDao{
 //    @Transactional
     public Location save(Location location) {
         Transaction transaction = null;
-        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+        try{
+            Session session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             session.saveOrUpdate(location);
             transaction.commit();
@@ -49,14 +51,14 @@ public class LocationDaoImpl implements LocationDao{
     @Override
     public Boolean delete(String locaName) {
         String hql = "DELETE Location where name = :location1";
-        int deletCount = 0;
+        int deleteCount = 0;
         Transaction transaction = null;
 
-        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+        try(Session session = sessionFactory.openSession()){
             transaction = session.beginTransaction();
             Query<Location> query = session.createQuery(hql);
             query.setParameter("location1", locaName);
-            deletCount = query.executeUpdate();
+            deleteCount = query.executeUpdate();
             return true;
         }
         catch(Exception e){
@@ -70,7 +72,7 @@ public class LocationDaoImpl implements LocationDao{
     public List<Location> getLocationAndProducts(String name) {
         if (name == null) return null;
         String hql = "FROM Location as loca left join fetch loca.products where lower(loca.name) = :name";
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery(hql);
             query.setParameter("name", name.toLowerCase());
 
@@ -80,12 +82,16 @@ public class LocationDaoImpl implements LocationDao{
 
             }
     @Override
-    public Location getLocationById ( int id){
-        String hql = "FROM Location b where b.id=:id";
+    public Location getLocationById (Long locationId){
+
+        if(locationId <= 0) return null;
+
+        String hql = "FROM Location as b left join fetch b.products where b.id=:id";
         try (Session session = sessionFactory.openSession()) {
+
             Query<Location> query = session.createQuery(hql);
-            query.setParameter("id", id);
-            return query.getSingleResult();
+            query.setParameter("id", locationId);
+            return query.uniqueResult();
         }
     }
 }
