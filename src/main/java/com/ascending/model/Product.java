@@ -1,10 +1,6 @@
 package com.ascending.model;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.checkerframework.checker.units.qual.C;
-
 import javax.persistence.*;
-
 @Entity
 @Table(name = "products")
 //product
@@ -12,7 +8,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
     @Column(name = "product_name")
@@ -35,6 +31,9 @@ public class Product {
     @JsonIgnore
     private Location location;
 
+    public Product() {
+    }
+
     public Location getLocation() {
         return location;
     }
@@ -43,13 +42,9 @@ public class Product {
         this.location = location;
     }
 
-    public Product() {
-    }
-
     public Long getId() {
         return id;
     }
-
 
     public String getName() {
         return name;
@@ -90,4 +85,6 @@ public class Product {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
 }

@@ -1,6 +1,7 @@
 package com.ascending.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "sellers")
@@ -22,10 +23,11 @@ public class Seller {
     @Column(name = "description")
     private String description;
 
-    @JoinColumn(name = "location")
+    @Column(name = "location")
     private String location;
 
-
+    @ManyToMany(mappedBy = "sellers")
+    private List<Location> locations;
 
     public Seller() {
     }
@@ -73,5 +75,13 @@ public class Seller {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public List<Location> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(List<Location> locations) {
+        this.locations = locations;
     }
 }

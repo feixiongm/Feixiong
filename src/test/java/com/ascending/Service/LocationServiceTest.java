@@ -36,7 +36,7 @@ public class LocationServiceTest {
     @After
     public void tearDown(){
         if(location != null)
-            locationService.delete(location.getName());
+            locationService.deleteByName(location.getName());
     }
 
     @Test
@@ -60,7 +60,10 @@ public class LocationServiceTest {
         assert(0 != location.getId());
 
     }
+    @Test
+    public void deleteTest(String locaName){
 
+    }
 
 
 //    public void getLocationAndProductsByTest(){

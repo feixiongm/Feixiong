@@ -8,4 +8,5 @@ public interface SellerDao {
     List<Seller> getSellers();
     Seller save(Seller seller);
     Boolean delete(String sellerName);
+    Seller getSellerById(Long SellerId);
 }

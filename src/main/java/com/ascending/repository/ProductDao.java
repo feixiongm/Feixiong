@@ -8,4 +8,5 @@ public interface ProductDao {
     List<Product> getProduct();
     Product save(Product product);
     Boolean delete(String proName);
+    Product getProductById(Long ProductId);
 }

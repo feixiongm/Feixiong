@@ -17,7 +17,7 @@ import java.util.List;
  * @return
  */
 @RestController
-@RequestMapping(value = {"/location"})
+@RequestMapping(value = {"/locations"})
 public class LocationController {
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
@@ -65,7 +65,7 @@ public class LocationController {
     public String deleteLocation(@PathVariable String locaName) {
         logger.debug("Location name: " + locaName);
         String msg = "The location was deleted.";
-        boolean isSuccess = locationService.delete(locaName);
+        boolean isSuccess = locationService.deleteByName(locaName);
         if (!isSuccess) msg = "The location was not deleted.";
         return msg;
     }

@@ -1,14 +1,13 @@
 package com.ascending.model;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "locations")
 //@Table(name = "locations")
 public class Location {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -28,20 +27,18 @@ public class Location {
     @Column(name = "seller_id")
     private Long seller_id;
 
-//    @JsonIgnore
-    @OneToMany(mappedBy = "location", cascade= CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinTable(name = "sellers_locations",
+            joinColumns = {@JoinColumn(name = "seller_id")},
+            inverseJoinColumns = {@JoinColumn(name = "location_id")}
+    )
+    private List<Seller> sellers;
+
+    //    @JsonIgnore
+    @OneToMany(mappedBy = "location", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private Set<Product> products;
 
     public Location() {
-    }
-
-    public Location(long id, String name, String phone_number, String email, String address, Long seller_id){
-        this.id = id;
-        this.name = name;
-        this.phone_number = phone_number;
-        this.email = email;
-        this.address = address;
-        this.seller_id = seller_id;
     }
 
     public Set<Product> getProducts() {
@@ -52,7 +49,7 @@ public class Location {
         this.products = products;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -94,5 +91,13 @@ public class Location {
 
     public void setSeller_id(Long seller_id) {
         this.seller_id = seller_id;
+    }
+
+    public List<Seller> getSellers() {
+        return sellers;
+    }
+
+    public void setSellers(List<Seller> sellers) {
+        this.sellers = sellers;
     }
 }

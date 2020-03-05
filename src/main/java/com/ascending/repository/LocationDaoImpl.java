@@ -49,7 +49,7 @@ public class LocationDaoImpl implements LocationDao{
 
 
     @Override
-    public Boolean delete(String locaName) {
+    public Boolean deleteByName(String locaName) {
         String hql = "DELETE Location where name = :location1";
         int deleteCount = 0;
         Transaction transaction = null;

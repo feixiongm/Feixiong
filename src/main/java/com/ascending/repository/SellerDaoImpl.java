@@ -1,5 +1,4 @@
 package com.ascending.repository;
-import com.ascending.model.Location;
 import com.ascending.model.Seller;
 import com.ascending.util.HibernateUtil;
 import org.hibernate.Criteria;
@@ -9,8 +8,11 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+@Repository
 public class SellerDaoImpl implements SellerDao {
 
     private SessionFactory sessionFactory;
@@ -48,7 +50,7 @@ public class SellerDaoImpl implements SellerDao {
 
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             transaction = session.beginTransaction();
-            Query<Location> query = session.createQuery(hql);
+            Query<Seller> query = session.createQuery(hql);
             query.setParameter("seller1", sellerName);
             deletCount = query.executeUpdate();
             return true;
@@ -60,4 +62,16 @@ public class SellerDaoImpl implements SellerDao {
         logger.debug(String.format("The seller %s was deleted", sellerName));
         return false;
     }
+    @Override
+    public Seller getSellerById(Long SellerId) {
+
+        String hql = "FROM Seller as p where p.id =:id";
+        try (Session session = sessionFactory.openSession()) {
+
+            Query<Seller> query = session.createQuery(hql);
+            query.setParameter("id", SellerId);
+            return query.uniqueResult();
+        }
+    }
+
 }

@@ -5,17 +5,19 @@ import com.ascending.repository.LocationDao;
 import com.ascending.repository.LocationDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+
+
 @Service
 public class LocationService {
-    private LocationDao locationDao = new LocationDaoImpl();
+    @Autowired
+    private LocationDao locationDao;
 
     public Location save (Location location){
         return locationDao.save(location);
     }
-    public boolean delete(String locaName){
-        return locationDao.delete(locaName);
+    public boolean deleteByName(String locaName){
+        return locationDao.deleteByName(locaName);
     }
     public List<Location> getLocations(){
         return locationDao.getLocations();

@@ -2,14 +2,11 @@ package com.ascending.repository;
 
 import com.ascending.init.ApplicationBootstrap;
 import com.ascending.model.Location;
-import com.ascending.repository.LocationDaoImpl;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -20,7 +17,8 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ApplicationBootstrap.class)
 public class LocationDaoTest {
-    private LocationDaoImpl locationDaoImpl = new LocationDaoImpl();
+    @Autowired
+    private LocationDao locationDao;
     //    private Logger logger = LoggerFactory.getLogger(getClass());
     private Location location;
 
@@ -32,20 +30,20 @@ public class LocationDaoTest {
         location.setName("Feixiong");
         location.setPhone_number("202-718-7348");
         location.setSeller_id(1L);
-        locationDaoImpl.save(location);
+        locationDao.save(location);
         //assert(0 != locations.getId());
     }
 
     @After
     public void tearDown() {
         if (location != null)
-            Assert.assertTrue(locationDaoImpl.delete(location.getName()));
+            Assert.assertTrue(locationDao.deleteByName(location.getName()));
     }
 
     @Test
     //@Transactional
     public void getLocationTest() {
-        List<Location> locations = locationDaoImpl.getLocations();
+        List<Location> locations = locationDao.getLocations();
         int expectedNumOfloca = 5;
         Assert.assertEquals(expectedNumOfloca, locations.size());
     }
@@ -53,7 +51,7 @@ public class LocationDaoTest {
     @Test
     public void getLocationByIdTest() {
         String testName = "location1";
-        Location location = locationDaoImpl.getLocationById(1L);
+        Location location = locationDao.getLocationById(1L);
         Assert.assertTrue(location.getName().equals("location1"));
     }
 
@@ -61,7 +59,7 @@ public class LocationDaoTest {
     public void updateTest() {
 
         location.setName("123");
-        locationDaoImpl.save(location);
+        locationDao.save(location);
         Assert.assertEquals("123", location.getName());
     }
 
@@ -72,7 +70,12 @@ public class LocationDaoTest {
 
     }
 
+    @Test
+    public void deleteTest() {
+        boolean isSuccess = locationDao.deleteByName(location.getName());
 
+        Assert.assertEquals(isSuccess, true);
+    }
 //    public void getLocationAndProductsByTest(){
 //        List<Location> locations = locationDaoImpl.getLocations();
 //
