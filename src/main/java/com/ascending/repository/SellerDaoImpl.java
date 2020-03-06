@@ -15,12 +15,12 @@ import java.util.List;
 @Repository
 public class SellerDaoImpl implements SellerDao {
 
-    private SessionFactory sessionFactory;
+    private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Override
     public List<Seller> getSellers() {
         String hql = "FROM Seller";
-        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+        try(Session session = sessionFactory.openSession()){
             Query<Seller> query = session.createQuery(hql);
             return query.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
         }
@@ -29,7 +29,7 @@ public class SellerDaoImpl implements SellerDao {
     @Override
     public Seller save(Seller seller) {
         Transaction transaction = null;
-        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+        try(Session session = sessionFactory.openSession()){
             transaction = session.beginTransaction();
             session.saveOrUpdate(seller);
             transaction.commit();
@@ -48,7 +48,7 @@ public class SellerDaoImpl implements SellerDao {
         int deletCount = 0;
         Transaction transaction = null;
 
-        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+        try(Session session = sessionFactory.openSession()){
             transaction = session.beginTransaction();
             Query<Seller> query = session.createQuery(hql);
             query.setParameter("seller1", sellerName);
@@ -63,13 +63,13 @@ public class SellerDaoImpl implements SellerDao {
         return false;
     }
     @Override
-    public Seller getSellerById(Long SellerId) {
+    public Seller getSellerById(Long sellerId) {
 
         String hql = "FROM Seller as p where p.id =:id";
         try (Session session = sessionFactory.openSession()) {
 
             Query<Seller> query = session.createQuery(hql);
-            query.setParameter("id", SellerId);
+            query.setParameter("id", sellerId);
             return query.uniqueResult();
         }
     }

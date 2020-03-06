@@ -18,14 +18,13 @@ public class Location {
 
     @Column(name = "phone_number")
     private String phone_number;
+
     @Column(name = "email")
     private String email;
 
     @Column(name = "address")
     private String address;
 
-    @Column(name = "seller_id")
-    private Long seller_id;
 
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinTable(name = "sellers_locations",
@@ -83,14 +82,6 @@ public class Location {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public Long getSeller_id() {
-        return seller_id;
-    }
-
-    public void setSeller_id(Long seller_id) {
-        this.seller_id = seller_id;
     }
 
     public List<Seller> getSellers() {

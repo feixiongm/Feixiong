@@ -16,13 +16,13 @@ import java.util.List;
 @Repository
 public class ProductDaoImpl implements ProductDao {
 
-    private SessionFactory sessionFactory;
+    private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
     public List<Product> getProduct() {
         String hql = "FROM Product";
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Query<Product> query = session.createQuery(hql);
             return query.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
         }
@@ -31,7 +31,7 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public Product save(Product product) {
         Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
             session.saveOrUpdate(product);
             transaction.commit();
@@ -44,12 +44,12 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public Boolean delete(String proName) {
+    public Boolean deleteByname(String proName) {
         String hql = "DELETE Product where name = :product1";
         int deletCount = 0;
         Transaction transaction = null;
 
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
             Query<Product> query = session.createQuery(hql);
             query.setParameter("product1", proName);
@@ -64,13 +64,13 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public Product getProductById(Long ProductId) {
+    public Product getProductById(Long productId) {
 
         String hql = "FROM Product as p where p.id =:id";
         try (Session session = sessionFactory.openSession()) {
 
             Query<Product> query = session.createQuery(hql);
-            query.setParameter("id", ProductId);
+            query.setParameter("id", productId);
             return query.uniqueResult();
         }
     }

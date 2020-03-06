@@ -7,6 +7,6 @@ import java.util.List;
 public interface ProductDao {
     List<Product> getProduct();
     Product save(Product product);
-    Boolean delete(String proName);
-    Product getProductById(Long ProductId);
+    Boolean deleteByname(String proName);
+    Product getProductById(Long productId);
 }

@@ -13,13 +13,9 @@ public class ProductService {
     @Autowired
     private ProductDao productDao;
 
-    public Product save (Product product){
-        return productDao.save(product);
-    }
-    public Boolean delete(String proName){
-        return productDao.delete(proName);
-    }
-    public List<Product> getLocations(){
-        return productDao.getProduct();
-    }
+    public Product save(Product product) { return productDao.save(product);}
+    public Product update(Product product) { return productDao.save(product);}
+    public Boolean deleteByName(String proName) { return productDao.deleteByname(proName); }
+    public List<Product> getProducts() { return productDao.getProduct(); }
+    public Product getProductById(Long productId) { return productDao.getProductById(productId); }
 }

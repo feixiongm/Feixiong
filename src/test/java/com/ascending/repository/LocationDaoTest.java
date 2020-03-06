@@ -29,7 +29,6 @@ public class LocationDaoTest {
         location.setEmail("1093599417@qq.com");
         location.setName("Feixiong");
         location.setPhone_number("202-718-7348");
-        location.setSeller_id(1L);
         locationDao.save(location);
         //assert(0 != locations.getId());
     }
@@ -44,7 +43,7 @@ public class LocationDaoTest {
     //@Transactional
     public void getLocationTest() {
         List<Location> locations = locationDao.getLocations();
-        int expectedNumOfloca = 5;
+        int expectedNumOfloca = 8;
         Assert.assertEquals(expectedNumOfloca, locations.size());
     }
 
@@ -52,7 +51,7 @@ public class LocationDaoTest {
     public void getLocationByIdTest() {
         String testName = "location1";
         Location location = locationDao.getLocationById(1L);
-        Assert.assertTrue(location.getName().equals("location1"));
+        Assert.assertEquals("location1", location.getName());
     }
 
     @Test

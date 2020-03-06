@@ -20,47 +20,57 @@ public class ProductDaoTest {
     private Product product;
     private Location location;
     @Autowired
-    LocationDao locationDao;
+    private LocationDao locationDao;
     @Autowired
     private ProductDao productDao;
 
     @Before
-    public void setUp(){
+    public void setUp() {
+        location = locationDao.getLocationById(1L);
 
-        location = new Location();
-        location.setAddress("falls church");
-        location.setEmail("1093599417@qq.com");
-        location.setName("Feixiong");
-        location.setPhone_number("202-718-7348");
-        location.setSeller_id(1L);
-        locationDao.save(location);
         product = new Product();
         product.setName("Light");
         product.setDescription("very good");
         product.setLocation(location);
         productDao.save(product);
     }
+
     @After
-    public void tearDown(){
-        if(product != null){
-            Assert.assertTrue(productDao.delete(product.getName()));
+    public void tearDown() {
+        if (product != null) {
+            Assert.assertTrue(productDao.deleteByname(product.getName()));
         }
     }
 
-//    List<Product> getProduct();
-//    Product save(Product product);
-//    Boolean delete(String proName);
-//    Product getProductById(Long ProductId);
     @Test
-    public void getProductTest(){
+    public void getProductTest() {
         List<Product> products = productDao.getProduct();
         int ExpectedNumberOfProduct = 5;
-        Assert.assertEquals(products.size(),ExpectedNumberOfProduct);
+        Assert.assertEquals(products.size(), ExpectedNumberOfProduct);
     }
 
     @Test
-    public void saveTest(){
-        assert(0 != product.getId());
+    public void saveTest() {
+        assert (0 != product.getId());
     }
 
+    @Test
+    public void updateProductTest() {
+        product.setName("hello");
+        productDao.save(product);
+        Assert.assertEquals(product.getName(), "hello");
+    }
+
+    @Test
+    public void deleteProductTest() {
+        boolean isSuccess = productDao.deleteByname(product.getName());
+        Assert.assertTrue(isSuccess);
+    }
+
+    @Test
+    public void getProductByIdTest() {
+        String testName = "product_name1";
+        Product product = productDao.getProductById(1L);
+        Assert.assertEquals(product.getName(),testName);
+    }
 }

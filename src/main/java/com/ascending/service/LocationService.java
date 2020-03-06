@@ -16,20 +16,14 @@ public class LocationService {
     public Location save (Location location){
         return locationDao.save(location);
     }
+    public Location update(Location location){
+        return locationDao.save(location);
+    }
     public boolean deleteByName(String locaName){
         return locationDao.deleteByName(locaName);
     }
     public List<Location> getLocations(){
         return locationDao.getLocations();
-    }
-    public LocationDao getLocationDao() {
-        return locationDao;
-    }
-    public void setLocationDao(LocationDao locationDao) {
-        this.locationDao = locationDao;
-    }
-    public List<Location> getLocationAndProducts(String name){
-        return locationDao.getLocationAndProducts(name);
     }
     public Location getLocationById(Long id){return locationDao.getLocationById(id);}
 }
