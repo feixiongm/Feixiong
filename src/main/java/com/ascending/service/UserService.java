@@ -23,4 +23,6 @@ public class UserService {
         return userDao.getUserByCredentials(email, password);
     }
 
+    public User findUserById(Long id){return userDao.findUserById(id);}
+
 }

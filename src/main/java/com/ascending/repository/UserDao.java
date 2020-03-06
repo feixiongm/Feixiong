@@ -5,5 +5,6 @@ import com.ascending.model.User;
 public interface UserDao {
     User save(User user);
     User getUserByEmail(String email);
-    User getUserByCredentials(String email, String password);
+    User getUserByCredentials(String email, String password) throws Exception;
+    User findUserById(Long id);
 }

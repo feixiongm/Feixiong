@@ -34,6 +34,19 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public User findUserById(Long id) {
+        if(id <= 0) return null;
+
+        String hql = "FROM User as u where u.id=:id";
+        try (Session session = sessionFactory.openSession()) {
+
+            Query<User> query = session.createQuery(hql);
+            query.setParameter("id", id);
+            return query.uniqueResult();
+        }
+    }
+
+    @Override
     public User getUserByEmail(String email) {
         String hql = "FROM User as u where lower(u.email) = :email";
 
@@ -46,16 +59,23 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getUserByCredentials(String email, String password) {
+
+    //TODO test
+    public User getUserByCredentials(String email, String password) throws Exception {
         String hql = "FROM User as u where lower(u.email) = :email and u.password = :password";
         logger.debug(String.format("User email: %s, password: %s", email, password));
 
-        try (Session session = sessionFactory.openSession()) {
+        try  {
+            Session session = sessionFactory.openSession();
             Query<User> query = session.createQuery(hql);
             query.setParameter("email", email.toLowerCase().trim());
             query.setParameter("password", password);
 
             return query.uniqueResult();
         }
+        catch (Exception e ){
+            throw e;
+        }
     }
+
 }

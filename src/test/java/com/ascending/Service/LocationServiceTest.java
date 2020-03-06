@@ -44,7 +44,7 @@ public class LocationServiceTest {
     //@Transactional
     public void getLocationTest(){
         List<Location> locations = locationService.getLocations();
-        int expectedNumOfloca = 8;
+        int expectedNumOfloca = 5;
         Assert.assertEquals(expectedNumOfloca, locations.size());
     }
 

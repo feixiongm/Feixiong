@@ -7,13 +7,14 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
 import java.util.Date;
 
-
+@Service
 public class JWTService {
     private Logger logger = LoggerFactory.getLogger(getClass());
     private final String SECRET_KEY = System.getProperty("secret.key");

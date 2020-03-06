@@ -43,7 +43,7 @@ public class LocationDaoTest {
     //@Transactional
     public void getLocationTest() {
         List<Location> locations = locationDao.getLocations();
-        int expectedNumOfloca = 8;
+        int expectedNumOfloca = 5;
         Assert.assertEquals(expectedNumOfloca, locations.size());
     }
 

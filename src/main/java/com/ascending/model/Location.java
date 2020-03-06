@@ -1,4 +1,7 @@
 package com.ascending.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -25,7 +28,7 @@ public class Location {
     @Column(name = "address")
     private String address;
 
-
+    @JsonIgnore
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinTable(name = "sellers_locations",
             joinColumns = {@JoinColumn(name = "seller_id")},
@@ -33,7 +36,6 @@ public class Location {
     )
     private List<Seller> sellers;
 
-    //    @JsonIgnore
     @OneToMany(mappedBy = "location", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private Set<Product> products;
 
