@@ -23,6 +23,12 @@ public class UserService {
         return userDao.getUserByCredentials(email, password);
     }
 
-    public User findUserById(Long id){return userDao.findUserById(id);}
+    public User getUserById(Long id) {
+        return userDao.findUserById(id);
+    }
+
+    public boolean deleteUserByName(String userName){
+        return userDao.deleteUserByName(userName);
+    }
 
 }

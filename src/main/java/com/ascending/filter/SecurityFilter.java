@@ -36,13 +36,13 @@ public class SecurityFilter implements Filter {
         if (uri.equalsIgnoreCase(AUTH_URI)) return HttpServletResponse.SC_ACCEPTED;
 
         try {
-            String token = request.getHeader("Authorization").replaceAll("^(.*?)", "");
+            String token = request.getHeader("Authorization").replaceAll("^(.*?) ", "");
             if (token == null || token.isEmpty()) return statusCode;
 
             Claims claims = jwtService.decryptJwtToken(token);
             if(claims.getId() != null){
-                User u = userService.findUserById(Long.valueOf(claims.getId()));
-               if(u != null) statusCode = HttpServletResponse.SC_OK;
+                User u = userService.getUserById(Long.valueOf(claims.getId()));
+               if(u != null) statusCode = HttpServletResponse.SC_ACCEPTED;
             }
         }catch(Exception e){
             logger.error("can not verify the token",e);

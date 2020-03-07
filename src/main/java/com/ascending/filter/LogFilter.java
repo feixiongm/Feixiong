@@ -20,7 +20,6 @@ public class LogFilter implements Filter {
 //    public void init(FilterConfig filterConfig) throws ServletException {
 //
 //    }
-
 //    @Override
 //    public void destroy() {
 //
@@ -67,6 +66,5 @@ public class LogFilter implements Filter {
         }
         return false;
     }
-
 
 }

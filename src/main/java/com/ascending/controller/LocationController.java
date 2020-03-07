@@ -73,8 +73,5 @@ public class LocationController {
         Location locations = locationService.getLocationById(id);
         return locations;
     }
-    /*
-      //TODO get by location ID
-     */
 
 }

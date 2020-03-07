@@ -1,5 +1,6 @@
 package com.ascending.repository;
 
+import com.ascending.model.Seller;
 import com.ascending.model.User;
 import com.ascending.util.HibernateUtil;
 import org.hibernate.Session;
@@ -59,23 +60,37 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-
     //TODO test
-    public User getUserByCredentials(String email, String password) throws Exception {
+    public User getUserByCredentials(String email, String password) {
         String hql = "FROM User as u where lower(u.email) = :email and u.password = :password";
         logger.debug(String.format("User email: %s, password: %s", email, password));
-
-        try  {
-            Session session = sessionFactory.openSession();
+        try (Session session = sessionFactory.openSession()) {
             Query<User> query = session.createQuery(hql);
             query.setParameter("email", email.toLowerCase().trim());
             query.setParameter("password", password);
 
             return query.uniqueResult();
         }
-        catch (Exception e ){
-            throw e;
-        }
     }
 
+    @Override
+    public boolean deleteUserByName(String userName) {
+        String hql = "DELETE User where name = :user1";
+        int deletCount = 0;
+        Transaction transaction = null;
+
+        try(Session session = sessionFactory.openSession()){
+            transaction = session.beginTransaction();
+            Query<User> query = session.createQuery(hql);
+            query.setParameter("user1", userName);
+            deletCount = query.executeUpdate();
+            return true;
+        }
+        catch(Exception e){
+            if(transaction != null) transaction.rollback();
+            logger.error(e.getMessage());
+        }
+        logger.debug(String.format("The seller %s was deleted", userName));
+        return false;
+    }
 }
