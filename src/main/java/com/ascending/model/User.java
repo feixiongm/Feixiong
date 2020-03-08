@@ -1,6 +1,9 @@
 package com.ascending.model;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -25,6 +28,13 @@ public class User {
 
     @Column(name = "email")
     private String email;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles",
+            joinColumns = { @JoinColumn(name = "role_id") },
+            inverseJoinColumns = { @JoinColumn(name = "user_id") }
+    )
+    private List<Role> roles;
 
     public User() {
     }
@@ -66,7 +76,15 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = DigestUtils.md5Hex(password.trim());
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     public String getEmail() {

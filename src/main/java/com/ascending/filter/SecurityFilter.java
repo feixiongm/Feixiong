@@ -16,6 +16,7 @@ import java.io.IOException;
 @WebFilter(filterName = "security", urlPatterns = {"/*"}, dispatcherTypes = {DispatcherType.REQUEST})
 public class SecurityFilter implements Filter {
     private static String AUTH_URI = "/auth";
+    private static String USER_URI =  "/user";
     @Autowired
     private JWTService jwtService;
     @Autowired
@@ -33,20 +34,36 @@ public class SecurityFilter implements Filter {
         int statusCode = HttpServletResponse.SC_UNAUTHORIZED;
         String uri = request.getRequestURI();
         String verb = request.getMethod();
-        if (uri.equalsIgnoreCase(AUTH_URI)) return HttpServletResponse.SC_ACCEPTED;
+        if (uri.equalsIgnoreCase(AUTH_URI)|| (uri.equalsIgnoreCase(USER_URI))) return HttpServletResponse.SC_ACCEPTED;
 
         try {
             String token = request.getHeader("Authorization").replaceAll("^(.*?) ", "");
             if (token == null || token.isEmpty()) return statusCode;
 
-            Claims claims = jwtService.decryptJwtToken(token);
+            Claims claims = jwtService.decodeJwtToken(token);
             if(claims.getId() != null){
                 User u = userService.getUserById(Long.valueOf(claims.getId()));
-               if(u != null) statusCode = HttpServletResponse.SC_ACCEPTED;
+               if(u != null) return statusCode;
             }
-        }catch(Exception e){
-            logger.error("can not verify the token",e);
+            String allowedResources = "/";
+            switch(verb) {
+                case "GET"    : allowedResources = (String)claims.get("allowedReadResources");   break;
+                case "POST"   : allowedResources = (String)claims.get("allowedCreateResources"); break;
+                case "PUT"    : allowedResources = (String)claims.get("allowedUpdateResources"); break;
+                case "DELETE" : allowedResources = (String)claims.get("allowedDeleteResources"); break;
+            }
+            for (String s : allowedResources.split(",")) {
+                if (uri.trim().toLowerCase().startsWith(s.trim().toLowerCase())) {
+                    statusCode = HttpServletResponse.SC_ACCEPTED;
+                    break;
+                }
+            }
+            logger.debug(String.format("Verb: %s, allowed resources: %s", verb, allowedResources));
         }
+        catch (Exception e) {
+            logger.error("can't verify the token",e);
+        }
+
         return statusCode;
     }
 

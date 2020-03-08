@@ -47,7 +47,7 @@ public class JWTServiceTest {
     @Test
     public void decryptJwtTokenTest(){
         String testToken = jwtService.generateToken(user);
-        Claims claims = jwtService.decryptJwtToken(testToken);
+        Claims claims = jwtService.decodeJwtToken(testToken);
         Assert.assertEquals(claims.getId(),user.getId().toString());
     }
 }
