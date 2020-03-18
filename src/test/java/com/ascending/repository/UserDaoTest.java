@@ -14,16 +14,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ApplicationBootstrap.class)
 public class UserDaoTest {
-
+    private User user;
     @Autowired
     private UserDao userDao;
-    private User user;
 
     @Before
     public void setUp() {
         user = new User();
-        user.setEmail("1093599417@qq.com");
-        user.setName("Feixiong Meng");
+        user.setEmail("1093599418@qq.com");
+        user.setName("FeixiongMeng");
         user.setFirstname("Feixiong");
         user.setLastname("Meng");
         user.setPassword("930715abcd");
@@ -39,9 +38,9 @@ public class UserDaoTest {
 
     @Test
     public void getUserByCredentialsTest(){
-        String testName = "Feixiong Meng";
-        User testUser = userDao.getUserByCredentials("1093599417@qq.com","930715abcd");
-        Assert.assertEquals(testUser.getName(),testName);
+        String testName = "FeixiongMeng";
+        User user = userDao.getUserByCredentials("1093599418@qq.com","930715abcd");
+        Assert.assertEquals(user.getName(),testName);
     }
 
 }

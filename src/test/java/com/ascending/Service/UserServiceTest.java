@@ -13,11 +13,11 @@ public class UserServiceTest {
 
     @Autowired
     private UserService userService;
-    private User user;
+    private User user = new User();
 
     @Before
     public void setUp() {
-        user = new User();
+//        user = new User();
         user.setEmail("1093599417@qq.com");
         user.setName("Feixiong Meng");
         user.setFirstname("Feixiong");

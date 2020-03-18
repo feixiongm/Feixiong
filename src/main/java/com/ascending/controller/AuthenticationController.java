@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = {"/auth"})
@@ -28,25 +30,30 @@ public class AuthenticationController {
     private String tokenType = "Bearer";
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public ResponseEntity<String> authentication(@RequestBody User user){
+    public ResponseEntity<Map> authentication(@RequestBody User user){
         //1. validate user
         //2. generate Token
         String token = "";
+        Map<String,String> result = new HashMap<>();
         try{
             logger.debug(user.toString());
             User u = userService.getUserByCredentials(user.getEmail(),user.getPassword());
-            if(u == null) return ResponseEntity.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).body(errorMsg);
+            result.put("msg",errorMsg);
+            if(u == null) return ResponseEntity.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).body(result);
             logger.debug(u.toString());
             token = jwtService.generateToken(u);
+            result.put("token",token);
+
         }
         catch (Exception e){
             String msg = e.getMessage();
             if(msg == null) msg = "BAD REQUEST";
             logger.error(msg);
-            return ResponseEntity.status(HttpServletResponse.SC_BAD_REQUEST).body(msg);
+            result.put("msg",msg);
+            return ResponseEntity.status(HttpServletResponse.SC_BAD_REQUEST).body(result);
 
         }
-        return ResponseEntity.status(HttpServletResponse.SC_OK).body(tokenKeyWord + ":" + tokenType + " " + token);
+        return ResponseEntity.status(HttpServletResponse.SC_OK).body(result);
     }
 
 }

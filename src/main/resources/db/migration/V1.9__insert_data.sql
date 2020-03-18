@@ -1,7 +1,7 @@
 insert into roles (name, allowed_resource, allowed_read, allowed_create, allowed_update, allowed_delete) values
 ('Admin', '/', 'Y', 'Y', 'Y', 'Y'),
-('Manager', '/depts,/departments,/employees,/ems,/acnts,/accounts', TRUE, TRUE, TRUE, FALSE),
-('user', '/employees,/ems,/acnts,/accounts', TRUE, FALSE, FALSE, FALSE)
+('Manager', '/locations,/products,/sellers', TRUE, TRUE, TRUE, FALSE),
+('user', '/locations,/products,/sellers', TRUE, FALSE, FALSE, FALSE)
 ;
 commit;
 insert into users (name, password,first_name, last_name, email) values

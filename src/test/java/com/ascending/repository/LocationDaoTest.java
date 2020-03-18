@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -24,6 +23,7 @@ public class LocationDaoTest {
 
     @Before
     public void setup() {
+
         location = new Location();
         location.setAddress("falls church");
         location.setEmail("1093599417@qq.com");
