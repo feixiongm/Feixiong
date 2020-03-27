@@ -21,6 +21,7 @@ public class UserController {
     @RequestMapping(value = {""}, method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public User createUser(@RequestBody User user) {
         User u = userService.save(user);
+        //add role
         if (u!=null) logger.error("The location was not saved.");
         return u;
     }
