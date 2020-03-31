@@ -13,6 +13,8 @@ public class FileService {
     private String bucketName;
     private String bucket;
     private AmazonS3 s3Client;
+
+
     public FileService() {
          s3Client = AmazonS3ClientBuilder.standard()
                 .withRegion("us-east-1")
@@ -49,7 +51,7 @@ public class FileService {
 //        AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
 //                .withRegion("us-east-1")
 //                .build();
-        s3Client.putObject(bucketName, f.getName(), "Uploaded String Object");
+        s3Client.putObject(bucketName, f.getName(), f);
     }
 
     public String getObjectUrl(String key){

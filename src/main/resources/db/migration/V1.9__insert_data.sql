@@ -5,7 +5,7 @@ insert into roles (name, allowed_resource, allowed_read, allowed_create, allowed
 ;
 commit;
 insert into users (name, password,first_name, last_name, email) values
-('dwang', '25f9e794323b453885f5181f1b624d0b', 'David', 'Wang', 'dwang@training.ascendingdc.com'),
+('feixiong', 'de358fb22a24e768c3e335811dcfcffa', 'Feixiong', 'Meng', '1093599417@qq.com'),
 ('rhang', '25f9e794323b453885f5181f1b624d0b', 'Ryo', 'Hang', 'rhang@training.ascendingdc.com'),
 ('xyhuang', '25f9e794323b453885f5181f1b624d0b', 'Xinyue', 'Huang', 'xyhuang@training.ascendingdc.com')
 ;
