@@ -17,31 +17,31 @@ public class SellerController {
     private Logger logger = LoggerFactory.getLogger(getClass());
     private SellerService sellerService;
 
-    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<Seller> getSeller() {
         return sellerService.getSellers();
     }
-@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Seller getSellerById(@PathVariable Long id){
         return sellerService.getSellerById(id);
     }
 
 
-    @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public Seller createSeller(@RequestBody Seller seller) {
         logger.debug("Seller:" + seller);
         Seller result = sellerService.save(seller);
         return result;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public Seller updateSeller(@RequestBody Seller seller) {
         logger.debug("Seller:" + seller);
         Seller updateSeller = sellerService.update(seller);
         return updateSeller;
     }
 
-@RequestMapping(value = "delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "delete", method = RequestMethod.DELETE, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public String deleteSeller(@RequestParam String sellerName){
         String msg = "The seller was deleted";
         boolean isSuccess = sellerService.delete(sellerName);
