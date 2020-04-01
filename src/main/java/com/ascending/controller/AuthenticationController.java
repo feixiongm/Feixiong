@@ -38,7 +38,7 @@ public class AuthenticationController {
         try{
             logger.debug(user.toString());
             User u = userService.getUserByCredentials(user.getEmail(),user.getPassword());
-            result.put("msg",errorMsg);
+            result.put("msg","successfully signed in");
             if(u == null) return ResponseEntity.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).body(result);
             logger.debug(u.toString());
             token = jwtService.generateToken(u);

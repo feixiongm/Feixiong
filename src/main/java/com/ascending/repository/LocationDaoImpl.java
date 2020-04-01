@@ -14,6 +14,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Repository
 public class LocationDaoImpl implements LocationDao{
 
@@ -21,11 +24,13 @@ public class LocationDaoImpl implements LocationDao{
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
-    public List<Location> getLocations() {
+    public Set<Location> getLocations() {
         String hql = "FROM Location  as loca left join fetch loca.products";
         try(Session session = sessionFactory.openSession()){
             Query<Location> query = session.createQuery(hql);
-            return query.list();
+            List<Location> result = query.getResultList();
+            Set<Location> setResult = result.stream().collect(Collectors.toSet());
+            return setResult;
         }
     }
 

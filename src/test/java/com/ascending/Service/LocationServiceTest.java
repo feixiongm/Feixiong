@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Set;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ApplicationBootstrap.class)
@@ -43,7 +44,7 @@ public class LocationServiceTest {
     @Test
     //@Transactional
     public void getLocationTest(){
-        List<Location> locations = locationService.getLocations();
+        Set<Location> locations = locationService.getLocations();
         int expectedNumOfloca = 5;
         Assert.assertEquals(expectedNumOfloca, locations.size());
     }

@@ -17,6 +17,7 @@ import java.io.IOException;
 public class SecurityFilter implements Filter {
     private static String AUTH_URI = "/auth";
     private static String USER_URI =  "/user";
+
     @Autowired
     private JWTService jwtService;
     @Autowired
@@ -34,7 +35,7 @@ public class SecurityFilter implements Filter {
         int statusCode = HttpServletResponse.SC_UNAUTHORIZED;
         String uri = request.getRequestURI();
         String verb = request.getMethod();
-        if (uri.equalsIgnoreCase(AUTH_URI)|| (uri.equalsIgnoreCase(USER_URI))) return HttpServletResponse.SC_ACCEPTED;
+        if (uri.equalsIgnoreCase(AUTH_URI)|| (uri.equalsIgnoreCase(USER_URI)) ) return HttpServletResponse.SC_ACCEPTED;
 
         try {
             String token = request.getHeader("Authorization").replaceAll("^(.*?) ", "");
@@ -43,7 +44,7 @@ public class SecurityFilter implements Filter {
             Claims claims = jwtService.decodeJwtToken(token);
             if(claims.getId() != null){
                 User u = userService.getUserById(Long.valueOf(claims.getId()));
-               if(u != null) return statusCode;
+               if(u == null) return statusCode;
             }
             String allowedResources = "/";
             switch(verb) {

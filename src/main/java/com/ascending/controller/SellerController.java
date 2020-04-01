@@ -11,7 +11,7 @@ import javax.print.attribute.standard.Media;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = {"/sellers"})
+@RequestMapping(value = "/sellers")
 public class SellerController {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
@@ -41,7 +41,7 @@ public class SellerController {
         return updateSeller;
     }
 
-@RequestMapping(value = "delete", method = RequestMethod.DELETE, consumes = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(value = "/delete", method = RequestMethod.DELETE, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public String deleteSeller(@RequestParam String sellerName){
         String msg = "The seller was deleted";
         boolean isSuccess = sellerService.delete(sellerName);

@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Set;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ApplicationBootstrap.class)
@@ -42,7 +43,7 @@ public class LocationDaoTest {
     @Test
     //@Transactional
     public void getLocationTest() {
-        List<Location> locations = locationDao.getLocations();
+        Set<Location> locations = locationDao.getLocations();
         int expectedNumOfloca = 5;
         Assert.assertEquals(expectedNumOfloca, locations.size());
     }

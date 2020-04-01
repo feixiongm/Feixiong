@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Set;
 
 /**
  * GET/TEST
@@ -16,7 +17,7 @@ import java.util.List;
  * @return
  */
 @RestController
-@RequestMapping(value = {"/locations"})
+@RequestMapping(value = "/locations")
 public class LocationController {
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
@@ -28,8 +29,8 @@ public class LocationController {
     * //TODO join fetch in dao
     * */
     @RequestMapping(method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public List<Location> getLocations() {
-        List<Location> locations = locationService.getLocations();
+    public Set<Location> getLocations() {
+        Set<Location> locations = locationService.getLocations();
         return locations;
     }
 
@@ -37,7 +38,7 @@ public class LocationController {
     * POST
     * /location
     * */
-    @RequestMapping(value = {""}, method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public Location createLocation(@RequestBody Location location) {
         logger.debug("Location: " + location.toString());
         Location loca = locationService.save(location);
@@ -54,6 +55,13 @@ public class LocationController {
         Location updateLoca = locationService.save(location);
         if (updateLoca!=null) logger.error("The location was not updated.");
         return updateLoca;
+    }
+    @RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
+    public Location updateLocationByName(@PathVariable("id") Long id,@RequestParam("name") String name){
+        Location location = locationService.getLocationById(id);
+        location.setName(name);
+        locationService.update(location);
+        return location;
     }
     /*
     * DELETE
