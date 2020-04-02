@@ -19,7 +19,7 @@ public class SellerDaoImpl implements SellerDao {
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Override
     public List<Seller> getSellers() {
-        String hql = "FROM Seller";
+        String hql = "FROM Seller  as sell left join fetch sell.locations";
         try(Session session = sessionFactory.openSession()){
             Query<Seller> query = session.createQuery(hql);
             return query.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();

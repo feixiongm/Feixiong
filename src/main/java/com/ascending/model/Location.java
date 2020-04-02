@@ -28,7 +28,7 @@ public class Location {
     @Column(name = "address")
     private String address;
 
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinTable(name = "sellers_locations",
             joinColumns = {@JoinColumn(name = "seller_id")},

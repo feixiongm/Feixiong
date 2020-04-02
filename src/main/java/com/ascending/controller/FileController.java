@@ -20,7 +20,7 @@ public class FileController {
     @Autowired
     private FileService fileService;
 
-    @RequestMapping(value = "{}", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public void uploadFile(@RequestParam("file") MultipartFile mf) {
         logger.info(mf.getName());
         File temp = new File("/credentials.csv");

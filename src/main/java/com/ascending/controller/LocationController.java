@@ -18,7 +18,7 @@ import java.util.Set;
  * @return
  */
 @RestController
-@RequestMapping(value = "/locations")
+@RequestMapping(value = {"/locations"})
 public class LocationController {
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired

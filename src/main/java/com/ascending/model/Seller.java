@@ -1,5 +1,7 @@
 package com.ascending.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -25,7 +27,7 @@ public class Seller {
 
     @Column(name = "location")
     private String location;
-
+@JsonIgnore
     @ManyToMany(mappedBy = "sellers")
     private List<Location> locations;
 

@@ -21,12 +21,12 @@ public class UserController {
     private UserService userService;
     @Autowired
     private RoleService roleService;
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    //private Logger logger = LoggerFactory.getLogger(getClass());
 
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public User createUser(@RequestBody User user) {
         List<Role> roleList = new ArrayList<>();
-        roleList.add(roleService.getRoleById(3L));
+        roleList.add(roleService.getRoleById(1L));
         user.setRoles(roleList);
         userService.save(user);
         //if (u == null) logger.error("The user was not saved.");
