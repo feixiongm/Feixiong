@@ -21,8 +21,9 @@ public class SellerController {
     public List<Seller> getSeller() {
         return sellerService.getSellers();
     }
-@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Seller getSellerById(@PathVariable Long id){
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public Seller getSellerById(@PathVariable Long id) {
         return sellerService.getSellerById(id);
     }
 
@@ -41,11 +42,11 @@ public class SellerController {
         return updateSeller;
     }
 
-@RequestMapping(value = "/delete", method = RequestMethod.DELETE, consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public String deleteSeller(@RequestParam String sellerName){
+    @RequestMapping(value = "", method = RequestMethod.DELETE)
+    public String deleteSeller(@RequestParam("sellerName") String sellerName) {
         String msg = "The seller was deleted";
         boolean isSuccess = sellerService.delete(sellerName);
-        if(!isSuccess) msg = "The seller was not deleted";
+        if (!isSuccess) msg = "The seller was not deleted";
         return msg;
     }
 

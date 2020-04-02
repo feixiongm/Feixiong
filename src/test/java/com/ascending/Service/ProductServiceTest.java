@@ -72,7 +72,7 @@ public class ProductServiceTest {
     @Test
     public void getProductTest() {
         List<Product> products = productService.getProducts();
-        int ExpectedNumberOfProduct = 5;
+        int ExpectedNumberOfProduct = 6;
         Assert.assertEquals(products.size(), ExpectedNumberOfProduct);
     }
 }

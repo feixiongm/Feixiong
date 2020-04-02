@@ -4,6 +4,7 @@ import com.ascending.model.Product;
 import com.ascending.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,12 +15,12 @@ import java.util.List;
 public class ProductController {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
+    @Autowired
     private ProductService productService;
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<Product> getProduct() {
-        List<Product> products = productService.getProducts();
-        return products;
+        return productService.getProducts();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -31,8 +32,7 @@ public class ProductController {
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public Product createProduct(@RequestBody Product product) {
         logger.debug("Product:" + product.toString());
-        Product result = productService.save(product);
-        return result;
+        return productService.save(product);
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
@@ -43,8 +43,8 @@ public class ProductController {
         return updatePro;
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE, consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public String deleteProduct(@RequestParam String proName) {
+    @RequestMapping(value = "", method = RequestMethod.DELETE)
+    public String deleteProduct(@RequestParam("productName") String proName) {
         logger.debug("Product:" + proName);
         String msg = "The product was deleted";
         boolean isSuccess = productService.deleteByName(proName);

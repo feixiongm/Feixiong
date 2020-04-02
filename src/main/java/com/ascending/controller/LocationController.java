@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Set;
 
@@ -24,10 +25,10 @@ public class LocationController {
     private LocationService locationService;
 
     /*
-    * GET
-    * /location
-    * //TODO join fetch in dao
-    * */
+     * GET
+     * /location
+     * //TODO join fetch in dao
+     * */
     @RequestMapping(method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Set<Location> getLocations() {
         Set<Location> locations = locationService.getLocations();
@@ -35,49 +36,53 @@ public class LocationController {
     }
 
     /*
-    * POST
-    * /location
-    * */
+     * POST
+     * /location
+     * */
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public Location createLocation(@RequestBody Location location) {
         logger.debug("Location: " + location.toString());
         Location loca = locationService.save(location);
-        if (loca!=null) logger.error("The location was not saved.");
+        if (loca != null) logger.error("The location was not saved.");
         return loca;
     }
+
     /*
-    * PUT
-    * /location
-    * */
+     * PUT
+     * /location
+     * */
     @RequestMapping(value = "", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public Location updateLocation(@RequestBody Location location) {
         logger.debug("Location: " + location.toString());
         Location updateLoca = locationService.save(location);
-        if (updateLoca!=null) logger.error("The location was not updated.");
+        if (updateLoca != null) logger.error("The location was not updated.");
         return updateLoca;
     }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
-    public Location updateLocationByName(@PathVariable("id") Long id,@RequestParam("name") String name){
+    public Location updateLocationByName(@PathVariable("id") Long id, @RequestParam("name") String name) {
         Location location = locationService.getLocationById(id);
         location.setName(name);
         locationService.update(location);
         return location;
     }
+
     /*
-    * DELETE
-    * /location
-    * /locaName
-    * */
-    @RequestMapping(value = "/{locaName}", method = RequestMethod.DELETE, consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public String deleteLocation(@PathVariable String locaName) {
+     * DELETE
+     * /location
+     * /locaName
+     * */
+    @RequestMapping(value = "", method = RequestMethod.DELETE)
+    public String deleteLocation(@RequestParam("locationName") String locaName) {
         logger.debug("Location name: " + locaName);
         String msg = "The location was deleted.";
         boolean isSuccess = locationService.deleteByName(locaName);
         if (!isSuccess) msg = "The location was not deleted.";
         return msg;
     }
-    @RequestMapping(value = "/{id}",  method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Location getLocationById(@PathVariable Long id){
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public Location getLocationById(@PathVariable Long id) {
         Location locations = locationService.getLocationById(id);
         return locations;
     }

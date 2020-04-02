@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.*;
 
 @WebFilter(filterName = "logFilter", urlPatterns = {"/*"}, dispatcherTypes = {DispatcherType.REQUEST})
@@ -27,11 +28,11 @@ public class LogFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        long startTime = System.currentTimeMillis();
+        Instant startTime = Instant.now();
         HttpServletRequest req = (HttpServletRequest)servletRequest;
         String logInfo = logInfo(req);
-        logger.info(logInfo.replace("responeseTime",String.valueOf(System.currentTimeMillis() - startTime)));
         filterChain.doFilter(servletRequest, servletResponse);
+        logger.info(logInfo.replace("responeseTime",String.valueOf(Instant.now().getNano() - startTime.getNano())));
     }
     private String logInfo(HttpServletRequest req) {
         String formData = null;

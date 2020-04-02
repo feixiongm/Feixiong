@@ -20,10 +20,12 @@ public class JWTServiceTest {
     @Autowired
     private UserService userService;
     private User user;
-    private JWTService jwtService = new JWTService();
+    @Autowired
+    private JWTService jwtService;
     @Before
     public void setUp() {
         user = new User();
+        user.setId(10L);
         user.setEmail("1093599417@qq.com");
         user.setName("Feixiong Meng");
         user.setFirstname("Feixiong");

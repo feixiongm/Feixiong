@@ -55,8 +55,15 @@ public class FileService {
     }
 
     public String getObjectUrl(String key){
-        URL url = s3Client.getUrl(bucketName,key);
-        return url == null ? null : url.toString();
+
+        try {
+            URL url = s3Client.getUrl(bucketName, key);
+            return url == null ? null : url.toString();
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     public void createFolder(){

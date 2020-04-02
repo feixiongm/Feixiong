@@ -15,7 +15,7 @@ CREATE TABLE locations (
     phone_number    VARCHAR(30),
     email           VARCHAR(50),
     address         VARCHAR(150),
-    seller_id       BIGINT NOT NULL
+    seller_id       BIGINT
 );
 ALTER TABLE locations ADD CONSTRAINT location_pk PRIMARY KEY ( id );
 ALTER TABLE locations ADD CONSTRAINT location_fk foreign key (seller_id) REFERENCES seller(id);
@@ -26,7 +26,7 @@ CREATE TABLE products(
     price             float8,
     weight            float8,
     year              VARCHAR(4),
-    location_id       BIGINT NOT NULL
+    location_id       BIGINT
 
 );
 ALTER TABLE products ADD CONSTRAINT products_pk PRIMARY KEY ( id );
