@@ -6,3 +6,4 @@
 # compile
 # run migration
 # package
+# Test
