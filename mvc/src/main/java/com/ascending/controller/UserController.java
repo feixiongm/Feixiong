@@ -32,5 +32,13 @@ public class UserController {
         //if (u == null) logger.error("The user was not saved.");
         return user;
     }
+    @RequestMapping(value = "", method = RequestMethod.PUT)
+    public User setUser(@RequestParam("User") Long userId, @RequestParam("Role") Long roleId){
+        return userService.setRole(userId,roleId);
+    }
 
+    @RequestMapping(value = "", method = RequestMethod.DELETE)
+    public User deleteRole(@RequestParam("User") Long userId, @RequestParam("Role") Long roleId){
+        return userService.deleteRole(userId,roleId);
+    }
 }

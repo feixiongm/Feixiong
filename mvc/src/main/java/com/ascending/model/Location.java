@@ -15,30 +15,31 @@ public class Location {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView({View.Location.class, View.Product.class})
+    @JsonView({View.Location.class, View.Product.class, View.Seller.class})
     @Column(name = "id")
     private Long id;
-    @JsonView({View.Location.class, View.Product.class})
+    @JsonView({View.Location.class, View.Product.class, View.Seller.class})
     @Column(name = "name")
     private String name;
-    @JsonView({View.Location.class, View.Product.class})
+    @JsonView({View.Location.class, View.Product.class, View.Seller.class})
     @Column(name = "phone_number")
     private String phone_number;
-    @JsonView({View.Location.class, View.Product.class})
+    @JsonView({View.Location.class, View.Product.class, View.Seller.class})
     @Column(name = "email")
     private String email;
-    @JsonView({View.Location.class, View.Product.class})
+    @JsonView({View.Location.class, View.Product.class, View.Seller.class})
     @Column(name = "address")
     private String address;
-
     @JsonIgnore
-    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "sellers_locations",
-            joinColumns = {@JoinColumn(name = "seller_id")},
-            inverseJoinColumns = {@JoinColumn(name = "location_id")}
+            joinColumns = { @JoinColumn(name = "location_id") },
+            inverseJoinColumns = { @JoinColumn(name = "seller_id") }
     )
     private List<Seller> sellers;
-    @JsonView({View.Location.class})
+
+
+    @JsonView({View.Location.class,  View.Seller.class})
     @OneToMany(mappedBy = "location", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private Set<Product> products;
 

@@ -1,6 +1,8 @@
 package com.ascending.model;
 
+import com.ascending.jsonView.View;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,15 +13,20 @@ public class Seller {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @JsonView(View.Seller.class)
     private Long id;
 
     @Column(name = "name")
+    @JsonView(View.Seller.class)
     private String name;
 
+    @JsonView(View.Seller.class)
     @Column(name = "email")
     private String email;
 
     @Column(name = "phone_number")
+    @JsonView(View.Seller.class)
+
     private String phone_number;
 
     @Column(name = "description")

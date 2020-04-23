@@ -12,29 +12,29 @@ import javax.persistence.*;
 public class Product {
 
     @Id
-    @JsonView({View.Location.class, View.Product.class})
+    @JsonView({View.Location.class, View.Product.class, View.Seller.class})
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
-    @JsonView({View.Location.class, View.Product.class})
+    @JsonView({View.Location.class, View.Product.class, View.Seller.class})
     @Column(name = "product_name")
     private String name;
-    @JsonView({View.Location.class, View.Product.class})
+    @JsonView({View.Location.class, View.Product.class, View.Seller.class})
     @Column(name = "description")
     private String description;
-    @JsonView({View.Location.class, View.Product.class})
+    @JsonView({View.Location.class, View.Product.class, View.Seller.class})
     @Column(name = "price")
     private double price;
-    @JsonView({View.Location.class, View.Product.class})
+    @JsonView({View.Location.class, View.Product.class, View.Seller.class})
     @Column(name = "weight")
     private double weight;
-    @JsonView({View.Location.class, View.Product.class})
+    @JsonView({View.Location.class, View.Product.class, View.Seller.class})
     @Column(name = "year")
     private String year;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "location_id")
-    @JsonView({View.Location.class, View.Product.class})
+    @JsonView({View.Product.class})
     private Location location;
 
     public Product() {

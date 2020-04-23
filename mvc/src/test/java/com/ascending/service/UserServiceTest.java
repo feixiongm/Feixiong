@@ -1,8 +1,6 @@
-package com.ascending.Service;
+package com.ascending.service;
 
 import com.ascending.model.User;
-import com.ascending.repository.UserDao;
-import com.ascending.service.UserService;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

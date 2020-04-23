@@ -83,7 +83,7 @@ public class LocationController {
         if (!isSuccess) msg = "The location was not deleted.";
         return msg;
     }
-
+    @JsonView(View.Location.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Location getLocationById(@PathVariable Long id) {
         Location locations = locationService.getLocationById(id);

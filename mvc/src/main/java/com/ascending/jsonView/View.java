@@ -9,4 +9,8 @@ public class View {
     public static class Location{
 
     }
+
+    public static class Seller{
+
+    }
 }

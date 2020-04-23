@@ -15,6 +15,7 @@ import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class JWTService {
@@ -43,8 +44,8 @@ public class JWTService {
         String allowedCreateResources = "";
         String allowedUpdateResources = "";
         String allowedDeleteResources = "";
-        //String allowedResource = roles.stream().map(role -> role.getAllowedResource()).collect(Collectors.joining(","));
-        //claims.put("allowedResource", allowedResource);
+        String allowedResource = roles.stream().map(role -> role.getAllowedResource()).collect(Collectors.joining(","));
+        claims.put("allowedResource", allowedResource);
 
         for (Role role : roles) {
             if (role.isAllowedRead()) allowedReadResources = String.join(role.getAllowedResource(), allowedReadResources, ",");

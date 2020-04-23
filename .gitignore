@@ -1,8 +1,10 @@
-.idea/
+.idea
 build.gradle
 gradle/
 gradlew
 gradlew.bat
 settings.gradle
-target/
+target
 .DS_store
+*.class
+*.iml

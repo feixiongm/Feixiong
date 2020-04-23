@@ -1,7 +1,6 @@
-package com.ascending.Service;
+package com.ascending.service;
 
 import com.ascending.init.ApplicationBootstrap;
-import com.ascending.service.MessageService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +17,5 @@ public class MessageServiceTest {
         messageService.sendMessage("hello","Feixiong");
     }
 
-    @Test
-    public void getMessagesTest(){
-        messageService.getMessages("Feixiong");
-    }
-
-    @Test
-    public void createQueueTest(){
-        messageService.createQueue("Feixiong2");
-    }
 
 }

@@ -1,8 +1,7 @@
-package com.ascending.Service;
+package com.ascending.service;
 
 import com.ascending.init.ApplicationBootstrap;
 import com.ascending.model.Seller;
-import com.ascending.service.SellerService;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

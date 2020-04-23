@@ -1,9 +1,7 @@
-package com.ascending.Service;
+package com.ascending.service;
 
 import com.ascending.init.ApplicationBootstrap;
 import com.ascending.model.Location;
-import com.ascending.repository.LocationDaoImpl;
-import com.ascending.service.LocationService;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
 import java.util.Set;
 
 @RunWith(SpringRunner.class)

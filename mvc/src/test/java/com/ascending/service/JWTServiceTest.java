@@ -1,9 +1,7 @@
-package com.ascending.Service;
+package com.ascending.service;
 
 import com.ascending.init.ApplicationBootstrap;
 import com.ascending.model.User;
-import com.ascending.service.JWTService;
-import com.ascending.service.UserService;
 import io.jsonwebtoken.Claims;
 import org.junit.After;
 import org.junit.Assert;

@@ -19,12 +19,14 @@ public class ProductController {
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private ProductService productService;
+
     @JsonView(View.Product.class)
     @RequestMapping(value = "", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<Product> getProduct() {
         return productService.getProducts();
     }
 
+    @JsonView(View.Product.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Product getProductById(@PathVariable Long id) {
         Product product = productService.getProductById(id);

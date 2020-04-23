@@ -65,7 +65,7 @@ public class SellerDaoImpl implements SellerDao {
     @Override
     public Seller getSellerById(Long sellerId) {
 
-        String hql = "FROM Seller as p where p.id =:id";
+        String hql = "FROM Seller as p left join fetch p.locations where p.id =:id";
         try (Session session = sessionFactory.openSession()) {
 
             Query<Seller> query = session.createQuery(hql);

@@ -1,10 +1,8 @@
-package com.ascending.Service;
+package com.ascending.service;
 
 import com.ascending.init.ApplicationBootstrap;
 import com.ascending.model.Location;
 import com.ascending.model.Product;
-import com.ascending.service.LocationService;
-import com.ascending.service.ProductService;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

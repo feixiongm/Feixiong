@@ -21,13 +21,17 @@ public class FileController {
     private FileService fileService;
 
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    //return String url,json map
     public void uploadFile(@RequestParam("file") MultipartFile mf) {
         logger.info(mf.getName());
+        //hardcode convert to input mf
+        //File path on system
+        //get linux system path
         File temp = new File("/credentials.csv");
         try {
 
             mf.transferTo(temp);
-            fileService.uploadObject(temp,"feixiong-11");
+            fileService.uploadObject(mf,"feixiong-11");
         } catch (IOException e) {
 
             e.printStackTrace();
@@ -42,7 +46,7 @@ public class FileController {
 //    }
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity getPublicUrl(@PathVariable String key){
+    public ResponseEntity getPublicUrl(@RequestParam("s3Key") String key){
         String msg = String.format("Invalid parameters key=%s.", key);
         if(key == null) return ResponseEntity.status(HttpServletResponse.SC_BAD_REQUEST).body(msg);
 

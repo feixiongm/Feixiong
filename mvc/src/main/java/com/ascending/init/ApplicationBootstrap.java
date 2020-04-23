@@ -7,7 +7,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 @SpringBootApplication(scanBasePackages = {"com.ascending"})
 @ServletComponentScan(basePackages = {"com.ascending.filter"})
-public class ApplicationBootstrap {
+public class ApplicationBootstrap extends SpringBootServletInitializer{
 
     public static void main(String[] args) {
         SpringApplication.run(ApplicationBootstrap.class, args);

@@ -18,11 +18,11 @@ public class RoleDaoImpl implements RoleDao {
 
     @Override
     public Role getRoleById(Long id) {
-        String hql = "FROM Role as p where p.id =:id";
+        String hql = "FROM Role as p where p.id =:Id";
         try (Session session = sessionFactory.openSession()) {
 
             Query<Role> query = session.createQuery(hql);
-            query.setParameter("id", id);
+            query.setParameter("Id", id);
             return query.uniqueResult();
         }
     }

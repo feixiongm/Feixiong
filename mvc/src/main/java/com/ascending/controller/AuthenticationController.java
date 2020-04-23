@@ -30,26 +30,29 @@ public class AuthenticationController {
     private String tokenType = "Bearer";
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public ResponseEntity<Map> authentication(@RequestBody User user){
+    public ResponseEntity<Map> authentication(@RequestBody User user) {
         //1. validate user
         //2. generate Token
         String token = "";
-        Map<String,String> result = new HashMap<>();
-        try{
+        Map<String, String> result = new HashMap<>();
+        try {
             logger.debug(user.toString());
-            User u = userService.getUserByCredentials(user.getEmail(),user.getPassword());
-            result.put("msg","successfully signed in");
-            if(u == null) return ResponseEntity.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).body(result);
+            User u = userService.getUserByCredentials(user.getEmail(), user.getPassword());
+            //result.put("msg", "successfully signed in");
+            if (u == null) {
+                result.put("msg", errorMsg);
+                return ResponseEntity.status(HttpServletResponse.SC_NON_AUTHORITATIVE_INFORMATION).body(result);
+            }
             logger.debug(u.toString());
             token = jwtService.generateToken(u);
-            result.put("token",token);
+            result.put("token", token);
 
         }
-        catch (Exception e){
+        catch (Exception e) {
             String msg = e.getMessage();
-            if(msg == null) msg = "BAD REQUEST";
+            if (msg == null) msg = "BAD REQUEST";
             logger.error(msg);
-            result.put("msg",msg);
+            result.put("msg", msg);
             return ResponseEntity.status(HttpServletResponse.SC_BAD_REQUEST).body(result);
 
         }
