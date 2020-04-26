@@ -18,6 +18,7 @@ public class UserService {
 
     @Autowired
     private RoleDao roleDao;
+
     public User save(User user) {
         return userDao.save(user);
     }
@@ -34,11 +35,11 @@ public class UserService {
         return userDao.findUserById(id);
     }
 
-    public boolean deleteUserByName(String userName){
+    public boolean deleteUserByName(String userName) {
         return userDao.deleteUserByName(userName);
     }
 
-    public User setRole(Long userId, Long roleId){
+    public User setRole(Long userId, Long roleId) {
         User user = userDao.findUserById(userId);
         List<Role> roleList = user.getRoles();
         roleList.add(roleDao.getRoleById(roleId));
@@ -47,14 +48,22 @@ public class UserService {
         return user;
     }
 
-    public User deleteRole(Long userId, Long roleId){
+    public User deleteRole(Long userId, Long roleId) {
         User user = userDao.findUserById(userId);
         List<Role> roleList = user.getRoles();
+        //[482,483,484]
         Role role = roleDao.getRoleById(roleId);
+            //[482,483]
+        //[482] | [485]S
+
         roleList.remove(role);
         user.setRoles(roleList);
         userDao.save(user);
         return user;
     }
-
+    public static void main(String[] args){
+        String str = new String("111");
+        String st1 = new String("111");
+        System.out.println(str == st1);
+    }
 }
