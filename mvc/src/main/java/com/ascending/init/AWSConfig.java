@@ -15,14 +15,22 @@ import org.springframework.context.annotation.Profile;
 @Profile("dev")
 public class AWSConfig {
     @Bean
+    public AmazonS3 getAmazonS3() {
+        AmazonS3 s3Client = AmazonS3ClientBuilder.standard().build();
+        return s3Client;
+    }
+
+    @Bean
     public FileService getFileService() {
         AmazonS3 s3Client = AmazonS3ClientBuilder.standard().build();
         FileService fileService = new FileService(s3Client);
-        fileService.setBucketName("feixiong-11");
+//        fileService.setBucketName("feixiong-11");
+        System.out.println("dev");
         return fileService;
     }
+
     @Bean
-    public AmazonSQS getMessageService(){
+    public AmazonSQS getMessageService() {
 
         return AmazonSQSClientBuilder.standard().
                 withCredentials(new DefaultAWSCredentialsProviderChain()).build();

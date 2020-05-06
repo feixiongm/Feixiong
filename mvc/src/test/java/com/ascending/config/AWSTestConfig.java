@@ -15,17 +15,21 @@ import static org.mockito.Mockito.mock;
 @Configuration
 @Profile("unit")
 public class AWSTestConfig {
-    @Bean
-    public FileService getFileService() {
+    //@Bean
+//    public FileService getFileService() {
+//
+//        AmazonS3 s3Client = mock(AmazonS3.class);
+//        FileService fileService = new FileService(s3Client);
+//        return fileService;
+//    }
 
-        AmazonS3 s3Client = mock(AmazonS3.class);
-        FileService fileService = new FileService(s3Client);
-        fileService.setBucketName("feixiong-11");
-        return fileService;
-    }
     @Bean
-    public AmazonSQS getMessageService(){
+    public AmazonS3 getAmazonS3() {
+        return mock(AmazonS3.class);
+    }
+
+    @Bean
+    public AmazonSQS getMessageService() {
         return mock(AmazonSQS.class);
     }
-
 }

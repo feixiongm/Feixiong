@@ -1,10 +1,12 @@
 package com.ascending.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -31,12 +33,16 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
-            joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "role_id") }
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")}
     )
     private List<Role> roles;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    private Set<Image> images;
+
     public User() {
+
     }
 
     public Long getId() {
@@ -71,12 +77,21 @@ public class User {
         this.lastname = lastname;
     }
 
+   @JsonIgnore
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = DigestUtils.md5Hex(password.trim());
+    }
+
+    public Set<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(Set<Image> images) {
+        this.images = images;
     }
 
     public List<Role> getRoles() {

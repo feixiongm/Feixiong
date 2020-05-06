@@ -13,6 +13,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebFilter(filterName = "security", urlPatterns = {"/*"}, dispatcherTypes = {DispatcherType.REQUEST})
@@ -49,6 +50,8 @@ public class SecurityFilter implements Filter {
             Claims claims = jwtService.decodeJwtToken(token);
             if(claims.getId() != null){
                 User u = userService.getUserById(Long.valueOf(claims.getId()));
+                HttpSession httpSession = request.getSession();
+                httpSession.setAttribute("user",u);
                if(u == null) return statusCode;
             }
             String allowedResources = "/";

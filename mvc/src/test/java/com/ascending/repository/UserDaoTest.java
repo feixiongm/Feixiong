@@ -22,8 +22,8 @@ public class UserDaoTest {
     @Before
     public void setUp() {
         user = new User();
-        user.setEmail("1093599418@qq.com");
-        user.setName("FeixiongMeng");
+        user.setEmail("109359941890@qq.com");
+        user.setName("FeixiongMeng1");
         user.setFirstname("Feixiong");
         user.setLastname("Meng");
         user.setPassword("930715abcd");
@@ -39,8 +39,8 @@ public class UserDaoTest {
 
     @Test
     public void getUserByCredentialsTest(){
-        String testName = "FeixiongMeng";
-        testUser = userDao.getUserByCredentials("1093599418@qq.com",user.getPassword());
+        String testName = "FeixiongMeng1";
+        testUser = userDao.getUserByCredentials("109359941890@qq.com",user.getPassword());
         Assert.assertEquals(testUser.getName(),testName);
     }
 

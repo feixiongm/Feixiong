@@ -34,6 +34,7 @@ public class LogFilter implements Filter {
         filterChain.doFilter(servletRequest, servletResponse);
         logger.info(logInfo.replace("responeseTime",String.valueOf(Instant.now().getNano() - startTime.getNano())));
     }
+
     private String logInfo(HttpServletRequest req) {
         String formData = null;
         String httpMethod = req.getMethod();

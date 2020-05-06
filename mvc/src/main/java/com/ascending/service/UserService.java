@@ -61,9 +61,4 @@ public class UserService {
         userDao.save(user);
         return user;
     }
-    public static void main(String[] args){
-        String str = new String("111");
-        String st1 = new String("111");
-        System.out.println(str == st1);
-    }
 }
