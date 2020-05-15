@@ -5,11 +5,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "products")
 //product
-public class Product {
+public class Product implements Serializable {
 
     @Id
     @JsonView({View.Location.class, View.Product.class, View.Seller.class})

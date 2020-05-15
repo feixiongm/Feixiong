@@ -56,7 +56,6 @@ public class FileServiceTest {
 //        }
     }
 
-
     @Test
     public void uploadObjectTest() throws IOException {
 

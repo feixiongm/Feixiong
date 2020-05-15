@@ -16,16 +16,15 @@ import java.io.File;
 import java.net.URL;
 import java.util.UUID;
 
-@Service
+//@Service
 public class FileService {
     @Value("${aws.s3.bucket}")
     private String bucketName;
-    @Autowired
+    //@Autowired
     private AmazonS3 s3Client;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     public FileService(AmazonS3 s3Client) {
-        System.out.println("service");
         this.s3Client = s3Client;
     }
 

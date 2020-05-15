@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,12 +27,8 @@ public class LocationController {
     @Autowired
     private LocationService locationService;
 
-    /*
-     * GET
-     * /location
-     * //TODO join fetch in dao
-     * */
     @JsonView(View.Location.class)
+    @Cacheable(value = "locations")
     @RequestMapping(method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Set<Location> getLocations() {
         Set<Location> locations = locationService.getLocations();
@@ -85,7 +82,9 @@ public class LocationController {
     }
     @JsonView(View.Location.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @Cacheable(value = "locations")
     public Location getLocationById(@PathVariable Long id) {
+        logger.info("Get location with id {}.", id);
         Location locations = locationService.getLocationById(id);
         return locations;
     }

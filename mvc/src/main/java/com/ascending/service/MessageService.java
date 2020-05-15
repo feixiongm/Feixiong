@@ -15,11 +15,14 @@ import java.util.Map;
 
 @Service
 public class MessageService {
-    @Autowired
+    // @Autowired
     private AmazonSQS amazonSQS;
     //private String myQueueUrl = "https://sqs.us-east-1.amazonaws.com/617060188729/Feixiong";
     private Logger logger = LoggerFactory.getLogger(getClass());
 
+    public MessageService(@Autowired AmazonSQS amazonSQS) {
+        this.amazonSQS = amazonSQS;
+    }
 
     public AmazonSQS getAmazonSQS() {
         return amazonSQS;
@@ -40,12 +43,12 @@ public class MessageService {
         //final String messageId = sendMessageResult.getMessageId();
     }
 
- //   public List<Message> getMessages(String queueName) {
- //       String myQueueURL = getQueueUrl(queueName);
- //       ReceiveMessageRequest receiveMessageRequest = new ReceiveMessageRequest(myQueueURL);
- //       List<Message> messages = amazonSQS.receiveMessage(receiveMessageRequest).getMessages();
- //       logger.info("The message is " + messages);
- //       return messages;
- //   }
+    //   public List<Message> getMessages(String queueName) {
+    //       String myQueueURL = getQueueUrl(queueName);
+    //       ReceiveMessageRequest receiveMessageRequest = new ReceiveMessageRequest(myQueueURL);
+    //       List<Message> messages = amazonSQS.receiveMessage(receiveMessageRequest).getMessages();
+    //       logger.info("The message is " + messages);
+    //       return messages;
+    //   }
 
 }

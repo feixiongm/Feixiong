@@ -49,10 +49,11 @@ public class AuthenticationController {
 
         }
         catch (Exception e) {
-            String msg = e.getMessage();
-            if (msg == null) msg = "BAD REQUEST";
-            logger.error(msg);
-            result.put("msg", msg);
+//            String msg = e.getMessage();
+//            if (msg == null) msg = "BAD REQUEST";
+            e.printStackTrace();
+//            logger.error(msg);
+//            result.put("msg", msg);
             return ResponseEntity.status(HttpServletResponse.SC_BAD_REQUEST).body(result);
 
         }

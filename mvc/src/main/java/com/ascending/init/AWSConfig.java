@@ -7,12 +7,13 @@ import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import com.ascending.service.FileService;
 import com.ascending.service.MessageService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 @Configuration
-@Profile("dev")
+//@Profile("dev")
 public class AWSConfig {
     @Bean
     public AmazonS3 getAmazonS3() {
@@ -28,13 +29,20 @@ public class AWSConfig {
         System.out.println("dev");
         return fileService;
     }
+//    @Bean
+//    public MessageService getMessageService(){
+//        AmazonSQS amazonSQS = AmazonSQSClientBuilder.standard().build();
+//        MessageService messageService = new MessageService(amazonSQS);
+//        return messageService;
+//    }
 
     @Bean
-    public AmazonSQS getMessageService() {
+    public AmazonSQS getAmazonSQS() {
 
         return AmazonSQSClientBuilder.standard().
                 withCredentials(new DefaultAWSCredentialsProviderChain()).build();
-
     }
+
+
 
 }

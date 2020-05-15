@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class MessageService {
     @Autowired
-    private AmazonSQS amazonSQS;
+    AmazonSQS amazonSQS;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     public String getQueueUrl(String queueName) {
@@ -25,8 +25,13 @@ public class MessageService {
     public List<Message> getMessages(String queueName) {
         String myQueueURL = getQueueUrl(queueName);
         List<Message> messages = amazonSQS.receiveMessage(myQueueURL).getMessages();
-        logger.info("The message is " + messages);
+        logger.info("Message: " + messages);
         return messages;
     }
+//    public void deleteMessage(){
+//        for (Message m : messages) {
+//            amazonSQS.deleteMessage(queueUrl, m.getReceiptHandle());
+//        }
 
 }
+
