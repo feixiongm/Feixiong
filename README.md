@@ -1,2 +1,1 @@
-# Second hand trade App by Feixiong
-
+#Second-hand commodity online website 
