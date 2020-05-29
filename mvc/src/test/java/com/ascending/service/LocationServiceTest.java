@@ -70,7 +70,7 @@ public class LocationServiceTest {
     @Test
     public void getLocationByIdTest(){
 
-        String testName = "hello";
+        String testName = "location1";
         Location location = locationService.getLocationById(1L);
 
         Assert.assertEquals(location.getName(),testName);
