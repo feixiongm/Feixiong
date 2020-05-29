@@ -114,7 +114,7 @@
                 <version>6.1.4</version>
                 <configuration>
                     <driver>org.postgresql.Driver</driver>
-                    <url>jdbc:postgresql://localhost:5431/Feixiong</url>
+                    <url>jdbc:postgresql://${database.url}:${database.port}/${database.name}</url>
                     <user>admin</user>
                     <password>password</password>
                     <schemas>

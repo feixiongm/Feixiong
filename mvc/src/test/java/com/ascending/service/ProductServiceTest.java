@@ -70,7 +70,7 @@ public class ProductServiceTest {
     @Test
     public void getProductTest() {
         List<Product> products = productService.getProducts();
-        int ExpectedNumberOfProduct = 6;
+        int ExpectedNumberOfProduct = 5;
         Assert.assertEquals(products.size(), ExpectedNumberOfProduct);
     }
 }
